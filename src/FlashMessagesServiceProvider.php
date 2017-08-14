@@ -15,11 +15,11 @@ class FlashMessagesServiceProvider extends ServiceProvider
 			__DIR__ . '/resources/flash-messages.php', 'flash-messages'
 		);
 
-		$this->loadViewsFrom(__DIR__ . '/resources/script.blade.php', 'flash-messages');
+		$this->loadViewsFrom(__DIR__ . '/resources/views', 'flash-messages');
 
 		$this->publishes([
-			__DIR__ . '/resources/flash-messages.php' => config_path('flash-messages.php'),
-			__DIR__ . '/resources/script.blade.php'   => config_path('views/vendor/flash-messages'),
+			__DIR__ . '/config/flash-messages.php' => config_path('flash-messages.php'),
+			__DIR__ . '/resources/views'           => resource_path('views/vendor/flash-messages'),
 		]);
 	}
 }
