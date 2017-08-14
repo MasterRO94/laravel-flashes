@@ -1,0 +1,31 @@
+{
+    "name": "masterro/laravel-flashes",
+    "description": "Easy flash messages",
+    "license": "MIT",
+    "keywords": ["laravel", "flash", "session", "messages", "flash-messages"],
+    "authors": [
+        {
+            "name": "Roman Ihoshyn",
+            "email": "igoshin18@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^5.1,<5.6",
+        "illuminate/session": "^5.1,<5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "MasterRO\\LaravelFileCleaner\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MasterRO\\Flash\\FlashMessagesServiceProvider"
+            ],
+            "aliases": {
+                "Flash": "MasterRO\\Flash\\FlashFacade"
+            }
+        }
+    }
+}
