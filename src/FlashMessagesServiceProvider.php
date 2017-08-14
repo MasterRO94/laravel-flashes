@@ -12,7 +12,7 @@ class FlashMessagesServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		$this->mergeConfigFrom(
-			__DIR__ . '/resources/flash-messages.php', 'flash-messages'
+			__DIR__ . '/config/flash-messages.php', 'flash-messages'
 		);
 
 		$this->loadViewsFrom(__DIR__ . '/resources/views', 'flash-messages');
