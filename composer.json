@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MasterRO\\LaravelFileCleaner\\": "src/"
+            "MasterRO\\Flash\\": "src/"
         },
         "files": [
             "src/helpers.php"
