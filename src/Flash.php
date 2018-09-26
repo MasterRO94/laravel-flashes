@@ -103,5 +103,4 @@ class Flash
 
 		return Session::flash('flash_messages', [compact('type', 'message')]);
 	}
-
 }
