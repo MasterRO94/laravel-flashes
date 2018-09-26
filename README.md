@@ -36,7 +36,7 @@ composer require masterro/laravel-flashes
 
 #### Somewhere set the flash message
 - `flash("Hello, {$name}!");`
-- `flash("Hello, {$name}!", 'succees');`
+- `flash("Hello, {$name}!", 'success');`
 - `flash()->error($message);` `// ->success(), ->info(), ->warning(), ->error()`
 - `Flash::info('Flash!');`
 
