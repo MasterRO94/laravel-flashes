@@ -21,7 +21,6 @@ class Flash
 	 */
 	public $session;
 
-
 	/**
 	 * Flash constructor.
 	 *
@@ -36,46 +35,57 @@ class Flash
 		$this->session = $session;
 	}
 
-
 	/**
-	 * @param $message
+	 * Success
+	 *
+	 * @param string $message
 	 * @param bool $session
+	 *
+	 * @return mixed
 	 */
 	public static function success($message, $session = true)
 	{
-		((new static($message, 'success', $session))->push());
+		return ((new static($message, 'success', $session))->push());
 	}
 
-
 	/**
-	 * @param $message
+	 * Warning
+	 *
+	 * @param string $message
 	 * @param bool $session
+	 *
+	 * @return mixed
 	 */
 	public static function warning($message, $session = true)
 	{
-		((new static($message, 'warning', $session))->push());
+		return ((new static($message, 'warning', $session))->push());
 	}
 
-
 	/**
-	 * @param $message
+	 * Info
+	 *
+	 * @param string $message
 	 * @param bool $session
+	 *
+	 * @return mixed
 	 */
 	public static function info($message, $session = true)
 	{
-		((new static($message, 'info', $session))->push());
+		return ((new static($message, 'info', $session))->push());
 	}
 
-
 	/**
-	 * @param $message
+	 * Error
+	 *
+	 * @param string $message
 	 * @param bool $session
+	 *
+	 * @return mixed
 	 */
 	public static function error($message, $session = true)
 	{
-		((new static($message, 'error', $session))->push());
+		return ((new static($message, 'error', $session))->push());
 	}
-
 
 	/**
 	 * Push this Flash Message to Session
@@ -87,7 +97,9 @@ class Flash
 		$type = $this->type;
 		$message = $this->message;
 
-		if ($this->session) return Session::push('flash_messages', compact('type', 'message'));
+		if ($this->session) {
+			return Session::push('flash_messages', compact('type', 'message'));
+		}
 
 		return Session::flash('flash_messages', [compact('type', 'message')]);
 	}
