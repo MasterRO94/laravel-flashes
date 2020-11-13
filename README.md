@@ -15,9 +15,6 @@
     <a href="https://github.com/MasterRO94/laravel-flashes/blob/master/LICENSE">
         <img src="https://poser.pugx.org/masterro/laravel-flashes/license" alt="License">
     </a>
-    <a href="https://github.com/MasterRO94/laravel-flashes/blob/master/LICENSE">
-        <img src="https://poser.pugx.org/masterro/laravel-flashes/composerlock" alt="composer.lock">
-    </a>
 </p>
 
 # Laravel Flashes
