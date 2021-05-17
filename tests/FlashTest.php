@@ -107,4 +107,48 @@ class FlashTest extends TestCase
             $this->assertEquals($test[1], $sessionMessage['type']);
         }
     }
+
+    /** @test */
+    public function it_can_store_additional_data()
+    {
+        flash()->with(['test1' => 'Test 1'])->success('Success message');
+
+        [$sessionMessage] = session('flash_messages', [null]);
+
+        $this->assertEquals('Success message', $sessionMessage['message']);
+        $this->assertEquals('success', $sessionMessage['type']);
+        $this->assertEquals(['test1' => 'Test 1'], $sessionMessage['data']);
+
+        session()->flush();
+
+        Flash::make('Warning message', 'warning', true, ['test2' => 'Test 2'])->push();
+
+        [$sessionMessage] = session('flash_messages', [null]);
+
+        $this->assertEquals('Warning message', $sessionMessage['message']);
+        $this->assertEquals('warning', $sessionMessage['type']);
+        $this->assertEquals(['test2' => 'Test 2'], $sessionMessage['data']);
+    }
+
+    /** @test */
+    public function it_can_handle_custom_types()
+    {
+        flash()->emergency('Alert!');
+
+        [$sessionMessage] = session('flash_messages', [null]);
+
+        $this->assertEquals('Alert!', $sessionMessage['message']);
+        $this->assertEquals('emergency', $sessionMessage['type']);
+
+        session()->flush();
+
+        Flash::secondary('Why not?');
+
+        [$sessionMessage] = session('flash_messages', [null]);
+
+        $this->assertEquals('Why not?', $sessionMessage['message']);
+        $this->assertEquals('secondary', $sessionMessage['type']);
+
+        session()->flush();
+    }
 }

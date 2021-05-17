@@ -10,45 +10,88 @@ class Flash
 
     public string $type;
 
-    public bool $session;
+    public bool $storeInMainSession;
+
+    protected array $data;
 
     /**
      * Flash constructor.
      *
      * @param string $message
      * @param string $type
-     * @param bool $session
+     * @param bool $storeInMainSession
      */
-    public function __construct(string $message = '', string $type = 'success', bool $session = true)
-    {
+    public function __construct(
+        string $message = '',
+        string $type = 'success',
+        bool $storeInMainSession = true,
+        array $data = []
+    ) {
         $this->message = $message;
         $this->type = $type;
-        $this->session = $session;
+        $this->storeInMainSession = $storeInMainSession;
+        $this->data = $data;
     }
 
-    public static function make(string $message = '', string $type = 'success', bool $session = true): Flash
-    {
-        return new static($message, $type, $session);
+    public static function make(
+        string $message = '',
+        string $type = 'success',
+        bool $storeInMainSession = true,
+        array $data = []
+    ): Flash {
+        return new static($message, $type, $storeInMainSession, $data);
     }
 
-    public function success(string $message, bool $session = true)
+    public function with(array $data): Flash
     {
-        return static::make($message, 'success', $session)->push();
+        $this->data = $data;
+
+        return $this;
     }
 
-    public function warning(string $message, bool $session = true)
-    {
-        return static::make($message, 'warning', $session)->push();
+    public function fill(
+        ?string $message = null,
+        ?string $type = null,
+        ?bool $storeInMainSession = null,
+        ?array $data = null
+    ): Flash {
+        if (null !== $message) {
+            $this->message = $message;
+        }
+
+        if (null !== $type) {
+            $this->type = $type;
+        }
+
+        if (null !== $storeInMainSession) {
+            $this->storeInMainSession = $storeInMainSession;
+        }
+
+        if (null !== $data) {
+            $this->data = $data;
+        }
+
+        return $this;
     }
 
-    public function info(string $message, bool $session = true)
+    public function success(string $message, ?bool $storeInMainSession = null, ?array $data = null)
     {
-        return static::make($message, 'info', $session)->push();
+        return $this->fill($message, 'success', $storeInMainSession, $data)->push();
     }
 
-    public function error(string $message, bool $session = true)
+    public function warning(string $message, ?bool $storeInMainSession = null, ?array $data = null)
     {
-        return static::make($message, 'error', $session)->push();
+        return $this->fill($message, 'warning', $storeInMainSession, $data)->push();
+    }
+
+    public function info(string $message, ?bool $storeInMainSession = null, ?array $data = null)
+    {
+        return $this->fill($message, 'info', $storeInMainSession, $data)->push();
+    }
+
+    public function error(string $message, ?bool $storeInMainSession = null, ?array $data = null)
+    {
+        return $this->fill($message, 'error', $storeInMainSession, $data)->push();
     }
 
     /**
@@ -60,11 +103,17 @@ class Flash
     {
         $type = $this->type;
         $message = $this->message;
+        $data = $this->data;
 
-        if ($this->session) {
-            return Session::push('flash_messages', compact('type', 'message'));
+        if ($this->storeInMainSession) {
+            return Session::push('flash_messages', compact('type', 'message', 'data'));
         }
 
-        return Session::flash('flash_messages', [compact('type', 'message')]);
+        return Session::flash('flash_messages', [compact('type', 'message', 'data')]);
+    }
+
+    public function __call($method, $arguments = [])
+    {
+        $this->fill($arguments[0], $method)->push();
     }
 }
