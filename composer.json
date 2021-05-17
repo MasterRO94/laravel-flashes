@@ -10,8 +10,12 @@
         }
     ],
     "require": {
+        "php": "^7.4|^8.0",
         "illuminate/support": "^5.1|^6.0|^7.0|^8.0",
         "illuminate/session": "^5.1|^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.18|^6.17"
     },
     "autoload": {
         "psr-4": {
@@ -20,6 +24,11 @@
         "files": [
             "src/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MasterRO\\Flash\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "laravel": {

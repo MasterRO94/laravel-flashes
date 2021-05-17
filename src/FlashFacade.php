@@ -2,7 +2,9 @@
 
 namespace MasterRO\Flash;
 
-class FlashFacade
+use Illuminate\Support\Facades\Facade;
+
+class FlashFacade extends Facade
 {
 	/**
 	 * @return string

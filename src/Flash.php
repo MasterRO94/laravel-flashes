@@ -6,101 +6,65 @@ use Session;
 
 class Flash
 {
-	/**
-	 * @var string
-	 */
-	public $message;
+    public string $message;
 
-	/**
-	 * @var string
-	 */
-	public $type;
+    public string $type;
 
-	/**
-	 * @var bool
-	 */
-	public $session;
+    public bool $session;
 
-	/**
-	 * Flash constructor.
-	 *
-	 * @param $message
-	 * @param string $type
-	 * @param bool $session
-	 */
-	public function __construct($message = '', $type = 'success', $session = true)
-	{
-		$this->message = $message;
-		$this->type = $type;
-		$this->session = $session;
-	}
+    /**
+     * Flash constructor.
+     *
+     * @param string $message
+     * @param string $type
+     * @param bool $session
+     */
+    public function __construct(string $message = '', string $type = 'success', bool $session = true)
+    {
+        $this->message = $message;
+        $this->type = $type;
+        $this->session = $session;
+    }
 
-	/**
-	 * Success
-	 *
-	 * @param string $message
-	 * @param bool $session
-	 *
-	 * @return mixed
-	 */
-	public static function success($message, $session = true)
-	{
-		return ((new static($message, 'success', $session))->push());
-	}
+    public static function make(string $message = '', string $type = 'success', bool $session = true): Flash
+    {
+        return new static($message, $type, $session);
+    }
 
-	/**
-	 * Warning
-	 *
-	 * @param string $message
-	 * @param bool $session
-	 *
-	 * @return mixed
-	 */
-	public static function warning($message, $session = true)
-	{
-		return ((new static($message, 'warning', $session))->push());
-	}
+    public function success(string $message, bool $session = true)
+    {
+        return static::make($message, 'success', $session)->push();
+    }
 
-	/**
-	 * Info
-	 *
-	 * @param string $message
-	 * @param bool $session
-	 *
-	 * @return mixed
-	 */
-	public static function info($message, $session = true)
-	{
-		return ((new static($message, 'info', $session))->push());
-	}
+    public function warning(string $message, bool $session = true)
+    {
+        return static::make($message, 'warning', $session)->push();
+    }
 
-	/**
-	 * Error
-	 *
-	 * @param string $message
-	 * @param bool $session
-	 *
-	 * @return mixed
-	 */
-	public static function error($message, $session = true)
-	{
-		return ((new static($message, 'error', $session))->push());
-	}
+    public function info(string $message, bool $session = true)
+    {
+        return static::make($message, 'info', $session)->push();
+    }
 
-	/**
-	 * Push this Flash Message to Session
-	 *
-	 * @return mixed
-	 */
-	public function push()
-	{
-		$type = $this->type;
-		$message = $this->message;
+    public function error(string $message, bool $session = true)
+    {
+        return static::make($message, 'error', $session)->push();
+    }
 
-		if ($this->session) {
-			return Session::push('flash_messages', compact('type', 'message'));
-		}
+    /**
+     * Push this Flash Message to Session
+     *
+     * @return mixed
+     */
+    public function push()
+    {
+        $type = $this->type;
+        $message = $this->message;
 
-		return Session::flash('flash_messages', [compact('type', 'message')]);
-	}
+        if ($this->session) {
+            return Session::push('flash_messages', compact('type', 'message'));
+        }
+
+        return Session::flash('flash_messages', [compact('type', 'message')]);
+    }
 }
