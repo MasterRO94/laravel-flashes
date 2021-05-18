@@ -31,16 +31,21 @@ composer require masterro/laravel-flashes
 
 ### Usage
 
-#### Somewhere set the flash message
+#### Somewhere set the flash message 
 - `flash("Hello, {$name}!");`
 - `flash("Hello, {$name}!", 'success');`
 - `flash()->error($message);` `// ->success(), ->info(), ->warning(), ->error()`
+- `flash()->with(['body' => 'My custom body text']);` `// ->success(), ->info(), ->warning(), ->error()`
 - `Flash::info('Flash!');`
 
 #### Before closing `</body>` tag
-@include('flash-messages::script')
+`@include('flash-messages::script')`
 
-#### Implement notify method
+or **implement your own render logic**
+
+`php artisan vendor:publish --tag=flash-messages-views`
+
+#### Implement notify method (bootstrap-notify example)
 Package will trigger `notify(message, type)` global javascript function that you should implement. As an example here is bootstrap-notify implementation: 
 ```javascript
 window.notify = (message, type = 'success', options = {}) => {
