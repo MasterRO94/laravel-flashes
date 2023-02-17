@@ -52,7 +52,7 @@ or **implement your own render logic**
 `php artisan vendor:publish --tag=flash-messages-views`
 
 #### Implement notify method (bootstrap-notify example)
-Package will trigger `notify(message, type)` global javascript function that you should implement. As an example here is bootstrap-notify implementation: 
+Package will trigger `window.notify(message, type)` global javascript function that you should implement. As an example here is bootstrap-notify implementation: 
 ```javascript
 window.notify = (message, type = 'success', options = {}) => {
     if (type === 'error') {
