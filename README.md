@@ -23,7 +23,7 @@
     </a>
 </p>
 
-# Laravel Flashes
+# Easy Flash Messages for Laravel
 Fast flash message integration.
 
 
