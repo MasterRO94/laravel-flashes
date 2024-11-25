@@ -1,12 +1,14 @@
 <?php
 
+use MasterRO\Flash\Flash;
+
 if (! function_exists('flash')) {
-	function flash(string $message = null, string $type = 'success', bool $session = true)
+	function flash(?string $message = null, string $type = 'success', bool $session = true)
 	{
 	    if (!$message) {
-	        return \MasterRO\Flash\Flash::make();
+	        return Flash::make();
         }
 
-	    return \MasterRO\Flash\Flash::make($message, $type, $session)->push();
+	    return Flash::make($message, $type, $session)->push();
 	}
 }
