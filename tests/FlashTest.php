@@ -17,8 +17,7 @@ class FlashTest extends TestCase
         ];
     }
 
-    /** @test */
-    public function it_puts_message_to_session()
+    public function test_it_puts_message_to_session()
     {
         flash('Test');
 
@@ -28,8 +27,7 @@ class FlashTest extends TestCase
         $this->assertEquals('success', $sessionMessage['type']);
     }
 
-    /** @test */
-    public function it_puts_success_message_to_session()
+    public function test_it_puts_success_message_to_session()
     {
         flash('Success message', 'success');
 
@@ -57,8 +55,7 @@ class FlashTest extends TestCase
         $this->assertEquals('success', $sessionMessage['type']);
     }
 
-    /** @test */
-    public function it_puts_error_message_to_session()
+    public function test_it_puts_error_message_to_session()
     {
         flash('Error message', 'error');
 
@@ -86,7 +83,7 @@ class FlashTest extends TestCase
         $this->assertEquals('error', $sessionMessage['type']);
     }
 
-    public function it_puts_multiple_flash_messages()
+    public function test_it_puts_multiple_flash_messages()
     {
         flash('Error message', 'error');
         flash('Success message');
@@ -108,8 +105,7 @@ class FlashTest extends TestCase
         }
     }
 
-    /** @test */
-    public function it_can_store_additional_data()
+    public function test_it_can_store_additional_data()
     {
         flash()->with(['test1' => 'Test 1'])->success('Success message');
 
@@ -130,8 +126,7 @@ class FlashTest extends TestCase
         $this->assertEquals(['test2' => 'Test 2'], $sessionMessage['data']);
     }
 
-    /** @test */
-    public function it_can_handle_custom_types()
+    public function test_it_can_handle_custom_types()
     {
         flash()->emergency('Alert!');
 

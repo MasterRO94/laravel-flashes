@@ -30,6 +30,9 @@
             "MasterRO\\Flash\\Tests\\": "tests/"
         }
     },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    },
     "extra": {
         "laravel": {
             "providers": [
