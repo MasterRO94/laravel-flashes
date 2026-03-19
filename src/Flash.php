@@ -2,7 +2,7 @@
 
 namespace MasterRO\Flash;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class Flash
 {
@@ -74,32 +74,30 @@ class Flash
         return $this;
     }
 
-    public function success(string $message, ?bool $storeInMainSession = null, ?array $data = null)
+    public function success(string $message, ?bool $storeInMainSession = null, ?array $data = null): mixed
     {
         return $this->fill($message, 'success', $storeInMainSession, $data)->push();
     }
 
-    public function warning(string $message, ?bool $storeInMainSession = null, ?array $data = null)
+    public function warning(string $message, ?bool $storeInMainSession = null, ?array $data = null): mixed
     {
         return $this->fill($message, 'warning', $storeInMainSession, $data)->push();
     }
 
-    public function info(string $message, ?bool $storeInMainSession = null, ?array $data = null)
+    public function info(string $message, ?bool $storeInMainSession = null, ?array $data = null): mixed
     {
         return $this->fill($message, 'info', $storeInMainSession, $data)->push();
     }
 
-    public function error(string $message, ?bool $storeInMainSession = null, ?array $data = null)
+    public function error(string $message, ?bool $storeInMainSession = null, ?array $data = null): mixed
     {
         return $this->fill($message, 'error', $storeInMainSession, $data)->push();
     }
 
     /**
      * Push this Flash Message to Session
-     *
-     * @return mixed
      */
-    public function push()
+    public function push(): mixed
     {
         $type = $this->type;
         $message = $this->message;
@@ -112,7 +110,7 @@ class Flash
         return Session::flash('flash_messages', [compact('type', 'message', 'data')]);
     }
 
-    public function __call($method, $arguments = [])
+    public function __call($method, $arguments = []): void
     {
         $this->fill($arguments[0], $method)->push();
     }
